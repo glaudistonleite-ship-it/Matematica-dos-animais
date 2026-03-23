@@ -31,11 +31,14 @@ interface Question {
 }
 
 const ANIMALS = [
-  { icon: Rabbit, color: 'text-pink-400', name: 'Coelhinho', sound: 'https://assets.mixkit.co/active_storage/sfx/2012/2012-preview.mp3' },
-  { icon: Bird, color: 'text-blue-400', name: 'Passarinho', sound: 'https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3' },
-  { icon: Squirrel, color: 'text-orange-400', name: 'Esquilo', sound: 'https://assets.mixkit.co/active_storage/sfx/2014/2014-preview.mp3' },
-  { icon: Turtle, color: 'text-emerald-400', name: 'Tartaruga', sound: 'https://assets.mixkit.co/active_storage/sfx/2015/2015-preview.mp3' },
+  { icon: Rabbit, color: 'text-pink-400', name: 'Coelhinho', sound: 'https://cdn.pixabay.com/audio/2022/03/10/audio_c8c8a73484.mp3' },
+  { icon: Bird, color: 'text-blue-400', name: 'Passarinho', sound: 'https://cdn.pixabay.com/audio/2021/08/04/audio_bb630d7a4f.mp3' },
+  { icon: Squirrel, color: 'text-orange-400', name: 'Esquilo', sound: 'https://cdn.pixabay.com/audio/2022/03/15/audio_7838cf1633.mp3' },
+  { icon: Turtle, color: 'text-emerald-400', name: 'Tartaruga', sound: 'https://cdn.pixabay.com/audio/2022/03/10/audio_5e29380e2d.mp3' },
 ];
+
+const WRONG_SOUND = 'https://cdn.pixabay.com/audio/2022/03/24/audio_78390a260d.mp3';
+const CORRECT_SOUND = 'https://cdn.pixabay.com/audio/2021/08/04/audio_12b79504e1.mp3';
 
 const playSound = (url: string) => {
   const audio = new Audio(url);
@@ -129,8 +132,8 @@ export default function App() {
         }
         return next;
       });
-      playTone(880, 'sine', 0.5); // Happy tone
-      playSound(currentAnimal.sound); // Animal celebrates
+      playSound(CORRECT_SOUND);
+      setTimeout(() => playSound(currentAnimal.sound), 300); // Animal celebrates after success chime
       confetti({
         particleCount: 100,
         spread: 70,
@@ -139,7 +142,7 @@ export default function App() {
       });
     } else {
       setFeedback('WRONG');
-      playTone(220, 'sawtooth', 0.5); // Sad tone
+      playSound(WRONG_SOUND);
     }
 
     setTimeout(() => {
